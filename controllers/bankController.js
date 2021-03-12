@@ -1,4 +1,4 @@
-const BankModel = require('./model');
+const BankModel = require('../models/bankModel');
 
   //define controllers
    const createBankController = (req, res) => {
@@ -60,9 +60,15 @@ const BankModel = require('./model');
    const {id} = req.body;
    BankModel.findByIdAndRemove(id).then( deletedBank => {
      if(deletedBank){
-      res.json({message: "Bank deleted", data: deletedBank});
+
+      AccountModel.deleteMany( {bankId: deletedBank._id}).then( result => {
+        res.json({message: "Bank deleted", data: deletedBank});
+       
+      }).catch(err => console,log(err));
+      
       return;
      }
+     
      res.json({message: "Bank unavailable"});
    });
     
