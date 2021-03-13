@@ -1,8 +1,16 @@
 const AccountModel = require('../models/accountModel');
+//import express validation Result
+const { validationResult} = require("express-validator");
 
 //Create Account Controllers
 const createAccountController = (req, res) => {
     const {accountName, accountNumber, accountType, bankId} = req.body;
+
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     const account = new AccountModel({accountName, accountNumber, accountType, bankId}); 
 
@@ -18,6 +26,9 @@ const createAccountController = (req, res) => {
 
 const listAccountController = (req, res) => {
     //list all accounts
+if(!accounts) {
+  return res.json({message: "Account does not exist"})
+}
     const {id} = req.params;
   
 if(id){

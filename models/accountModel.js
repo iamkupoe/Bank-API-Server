@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 const AccountSchema = new Schema({
     accountName: {
         type: String,
-        required: true,
+        //required: true,
     },
 
     accountNumber: {
         type: String,
-        required: true,
+        //required: true,
     },
 
     accountType: {
