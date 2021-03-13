@@ -4,22 +4,26 @@ const mongoose = require('mongoose');
 //Define BankSchema
 const Schema = mongoose.Schema;
 const BankSchema = new Schema({
-    bankName: { 
+    name: { 
         type: String
     },
-    bankBranch: {
-        type: String
-    },
-
-    bankAddress: {
+    branch: {
         type: String
     },
 
-    bankLocation: {
+    address: {
         type: String
     },
 
-    bankPhoneNumber: {
+    location: {
+        type: String
+    },
+
+    phone: {
+        type: String
+    },
+
+    accountNumber: {
         type: String
     },
 
