@@ -26,9 +26,9 @@ const createAccountController = (req, res) => {
 
 const listAccountController = (req, res) => {
     //list all accounts
-if(!accounts) {
-  return res.json({message: "Account does not exist"})
-}
+//if(!accounts) {
+//  return res.json({message: "Account does not exist"})
+//}
     const {id} = req.params;
   
 if(id){
@@ -48,9 +48,29 @@ else {
 
 }
 
+const deleteAccountController = (req, res) => {
+  const {id} = req.body;
+  AccountModel.findByIdAndRemove(id).then( deletedAccount => {
+    if(deletedAccount){
+
+     AccountModel.deleteMany( {bankId: deletedAccount._id}).then( result => {
+       res.json({message: "Account deleted", data: deletedAccount});
+      
+     }).catch(err => console.log(err));
+     
+     return;
+    }
+    
+    res.json({message: "Account unavailable"});
+  });
+   
+}
+
+
 module.exports = {
     createAccountController, 
     listAccountController,
+    deleteAccountController,
     //updateAccountController, 
-    //deleteAccountController,
+   
 }

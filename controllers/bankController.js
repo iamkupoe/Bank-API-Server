@@ -1,8 +1,15 @@
 const BankModel = require('../models/bankModel');
+//import express validation result
+const { validationResult } = require('express-validator');
 
   //define controllers
    const createBankController = (req, res) => {
    const {name, branch, address, location, phone, accountNumber} = req.body;
+   // Finds the validation errors in this request and wraps them in an object with handy functions
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
 
    const bank = new BankModel({name, branch, address, location, phone, accountNumber}); 
    
@@ -64,7 +71,7 @@ const BankModel = require('../models/bankModel');
       AccountModel.deleteMany( {bankId: deletedBank._id}).then( result => {
         res.json({message: "Bank deleted", data: deletedBank});
        
-      }).catch(err => console,log(err));
+      }).catch(err => console.log(err));
       
       return;
      }

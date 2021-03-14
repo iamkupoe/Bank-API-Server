@@ -1,5 +1,7 @@
 //import express
 const express = require('express');
+//import express validation
+const { body } = require('express-validator');
 
 //create an instance of express router
 const router = express.Router();
@@ -10,7 +12,14 @@ const {listBankController, createBankController, updateBankController, deleteBan
 //create routes
 router.get('/bank/:id?', listBankController);
 
-router.post('/bank', createBankController);
+router.post('/bank', [
+body("name")
+.notEmpty()
+.withMessage("Bank name is required"),
+body("branch")
+.notEmpty()
+.withMessage("Bank branch is required")
+], createBankController);
 
 router.put('/bank', updateBankController);
 

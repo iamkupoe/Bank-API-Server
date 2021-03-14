@@ -5,7 +5,7 @@ const { body } = require('express-validator');
 //import an instance of express router
 const router = express.Router();
 //import controllers
-const {createAccountController, listAccountController} = require('../controllers/accountController');
+const {createAccountController, listAccountController, deleteAccountController} = require('../controllers/accountController');
 
 //create controllers
 router.post('/account',[body("accountName")
@@ -20,5 +20,7 @@ body("accountNumber")
 .withMessage({min: 12, max: 12})], createAccountController);
 
 router.get('/account/:id?', listAccountController);
+
+router.delete('/account/:id?', deleteAccountController);
 
 module.exports = router;
