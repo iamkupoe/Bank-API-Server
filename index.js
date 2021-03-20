@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const accountRoutes = require('./routes/accountsRoutes');
-const bankRoutes = require('./routes/banksRoutes')
+const bankRoutes = require('./routes/banksRoutes');
+const userRoutes = require('./routes/userRoutes');
 
   //create an express server instance
 const server = express();
@@ -12,6 +13,7 @@ const server = express();
 server.use(bodyParser.json());
 server.use(accountRoutes);
 server.use(bankRoutes);
+server.use(userRoutes);
 
 //connect to database and start server
 mongoose.connect("mongodb+srv://codetrainUser:biometrics@cluster0.ooft8.mongodb.net/codetrain?retryWrites=true&w=majority",{useNewUrlParser: true, useUnifiedTopology: true})
