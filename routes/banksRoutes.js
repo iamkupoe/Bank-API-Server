@@ -2,6 +2,8 @@
 const express = require('express');
 //import express validation
 const { body } = require('express-validator');
+//import isAuth
+const isAuth = require('../middlewares/is-auth')
 
 //create an instance of express router
 const router = express.Router();
@@ -10,7 +12,7 @@ const router = express.Router();
 const {listBankController, createBankController, updateBankController, deleteBankController} = require('../controllers/bankController');
 
 //create routes
-router.get('/bank/:id?', listBankController);
+router.get('/bank/:id?', isAuth, listBankController);
 
 router.post('/bank', [
 body("name")
@@ -19,11 +21,11 @@ body("name")
 body("branch")
 .notEmpty()
 .withMessage("Bank branch is required")
-], createBankController);
+], isAuth, createBankController);
 
-router.put('/bank', updateBankController);
+router.put('/bank', isAuth, updateBankController);
 
-router.delete('/bank', deleteBankController);
+router.delete('/bank', isAuth, deleteBankController);
 
 
 module.exports = router;

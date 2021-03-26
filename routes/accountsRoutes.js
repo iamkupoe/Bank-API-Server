@@ -4,6 +4,8 @@ const express = require('express');
 const { body } = require('express-validator');
 //import an instance of express router
 const router = express.Router();
+//import isAuth
+const isAuth = require('../middlewares/is-auth');
 //import controllers
 const {createAccountController, listAccountController, deleteAccountController} = require('../controllers/accountController');
 
@@ -17,10 +19,10 @@ body("accountNumber")
 .isNumeric()
 .withMessage("accountNumber is figures")
 .isLength()
-.withMessage({min: 12, max: 12})], createAccountController);
+.withMessage({min: 12, max: 12})], isAuth, createAccountController);
 
-router.get('/account/:id?', listAccountController);
+router.get('/account/:id?', isAuth, listAccountController);
 
-router.delete('/account/:id?', deleteAccountController);
+router.delete('/account/:id?', isAuth, deleteAccountController);
 
 module.exports = router;

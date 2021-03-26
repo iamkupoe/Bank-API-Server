@@ -6,7 +6,7 @@ const userModel = require('../models/userModel');
 //import an instance of express router
 const router = express.Router();
 //import controllers
-const {createUserController} = require('../controllers/userController');
+const {createUserController, signInUserController} = require('../controllers/userController');
 
 //create controllers
 router.post('/signup',[body("username")
@@ -28,6 +28,16 @@ body("password")
 .withMessage("Password should have at least 6 characters")
 .isLength()
 .withMessage({min: 6}) ], createUserController);
+
+router.post('/signin', [
+body("email")
+.isEmail()
+.withMessage("Email is invalid"),
+body("password")
+.notEmpty()
+.withMessage("Password should have at least 6 characters")
+.isLength()
+.withMessage({min: 6})], signInUserController);
 
 
 
